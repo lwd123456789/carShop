@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/main.css"/>
+    <script type="text/javascript" src="__JS__/libs/modernizr.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery-1.4.2.min.js"></script>
+</head>
+<body>
+<!--引入头部文件-->
+{include file="common/top" /}
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <!--引入左侧文件-->
+        {include file="common/left" /}
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+        <div class="crumb-wrap">
+            <div class="crumb-list">
+                <i class="icon-font"></i>
+                <a href="/jscss/admin">首页</a>
+                <span class="crumb-step">&gt;</span>
+                <span class="crumb-name">栏目管理</span>
+            </div>
+        </div>
+        <div class="search-wrap">
+            <div class="search-content">
+                <form action="/jscss/admin/design/index" method="post">
+                    <table class="search-tab">
+                        <tr>
+                            <th width="120">选择分类:</th>
+                            <td>
+                                <select name="search-sort" id="">
+                                    <option value="">全部</option>
+                                    {volist name="cates" id="cate"}
+                                    <option {if condition="$cate['type'] neq 1"}style="display:none;"{/if} value={$cate.id}>{if condition="$cate['parentid'] eq 0"}{else}|{/if}<?php echo str_repeat('-',$cate['level']*4)?>{$cate.name}</option>
+                                    {/volist}
+                                </select>
+                            </td>
+                            <th width="70">关键字:</th>
+                            <td><input class="common-text" placeholder="关键字" name="keywords" value="" id="" type="text"></td>
+                            <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <form name="myform" id="myform" method="post">
+                <div class="result-title">
+                    <div class="result-list">
+                        <a href="{:url('cate/add')}" class="btn btn-primary btn2">
+                            <i class="icon-font"></i>新增栏目
+                        </a>
+                        <a id="batchDel" href="javascript:void(0)">
+                            <i class="icon-font"></i>
+                            <input form="myform" formaction="{:url('cate/bdel')}" class="btn btn-primary btn2" type="submit" value="批量删除">
+                        </a>
+                        <a id="updateOrd" href="javascript:void(0)">
+                            <i class="icon-font"></i>
+                            <input form="myform" formaction="{:url('cate/sortcate')}" class="btn btn-primary btn2" type="submit" value="更新排序">
+                        </a>
+                    </div>
+                </div>
+                <div class="result-content">
+                    <table class="result-tab" width="100%">
+                        <tr>
+                            <th class="tc" width="5%"><input class="allChoose" name="" id="check" type="checkbox"></th>
+                            <th>排序</th>
+                            <th>ID</th>
+                            <th>栏目名称</th>
+                            <th>栏目类型</th>
+                            <th>缩略图</th>
+                            <th>是否是pc端</th>
+                            <th>操作</th>
+                        </tr>
+                        {volist name="cates" id="cate"}
+                        <tr>
+                            <td class="tc">
+                                <input name="ids[]" value="{$cate.id}" class="check" type="checkbox">
+                            </td>
+                            <td>
+                                <input class="common-input sort-input" name="{$cate.id}" value="{$cate.sort}" type="text">
+                            </td>
+                            <td>{$cate.id}</td>
+                            <td>{if condition="$cate['parentid'] eq 0"}{else}|{/if}<?php echo str_repeat('-',$cate['level']*4)?>{$cate.name}</td>
+                            <td>
+                                {if condition="$cate['type'] eq 1"}
+                                    列表
+                                {elseif condition="$cate['type'] eq 2"}
+                                    单页
+                                {elseif condition="$cate['type'] eq 3"}
+                                    留言
+                                {elseif condition="$cate['type'] eq 4"}
+                                    招聘
+                                {elseif condition="$cate['type'] eq 5"}
+                                    车辆列表
+                                {elseif condition="$cate['type'] eq 6"}
+                                    荣誉列表
+                                {elseif condition="$cate['type'] eq 7"}
+                                    求职表
+                                {/if}
+                            </td>
+                            <td>
+                                {if condition="$cate['pic'] neq ''"}
+                                    <img src="{$cate.pic}" height="30">
+                                {else /}
+                                    暂无缩略图
+                                {/if}
+                            </td>
+                            <td>
+                                {if condition="$cate['pc'] eq 1"}pc端
+                                {else /}移动端
+                                {/if}
+                            </td>
+                            <td>
+                                <a class="link-update" href="{:url('cate/edit',array('id'=>$cate['id']))}">修改</a>
+                                <a class="link-del" onclick="return confirm('确定删除本栏目及其子栏目？');" href="{:url('cate/del',array('id'=>$cate['id']))}">删除</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $("#check").click(function () {
+        if ($(this).attr("checked")){
+            $(".check").attr("checked","checked")
+        }else{
+            $(".check").removeAttr("checked")
+        }
+    })
+</script>

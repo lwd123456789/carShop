@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="telephone=no" name="format-detection" />
+<meta name="Author" content="0431" />
+<title>这里是您的网站名称</title>
+<meta name="keywords" content="这里是您的网站名称4" />
+<meta name="description" content="这里是您的网站名称" />
+<link rel="stylesheet" type="text/css" href="__STYLE__/subpage.css" />
+<script type="text/javascript" src="__STYLE__/jquery.js"></script>
+<style>
+.head {
+	background: #1a2a38;
+}
+.foot {
+	background: #132330;
+}
+.nav {
+	background: #0152b5 !important
+}
+.nav_color {
+	background: #222;
+}
+</style>
+<script type="text/javascript" src="__STYLE__/nav.js"></script>
+<script type="text/javascript" src="__STYLE__/cart_icon.js"></script>
+<link rel="stylesheet" type="text/css" href="__STYLE__/child_vip.css" />
+</head>
+<body>
+<!--引入导航文件-->
+{include file="common/nav" /}
+<div class="allpage">
+    <div class="black-fixed iconfont">&#xe60f;</div>
+    <!--引入头部文件-->
+    {include file="common/header" /}
+    <div class="content">
+        <a href="{:url('addmsg')}" title="我要留言" class="to_msg common_bg">我要留言</a>
+        <ul class="had_msg" id="contentArea"></ul>
+        <a href="javascript:void(0);" title="查看更多" id="imore" class="imore">查看更多</a>
+    </div>
+    <!--引入底部文件-->
+    {include file="common/footer" /}
+</div>
+<script language="javascript">
+    var page = 1; //当前页码
+    function getlist(page) {
+        $.ajax({
+            type:"GET",
+            url:"__ROOT__/index.php/mobile/message/getInfo/p/"+page+"",
+            dataType:"json",
+            success:function (msges) {
+                if (msges==null ||msges==''){
+                    $("#imore").html('没有数据了！');
+                    $("#imore").unbind("click");
+                }
+//                $(data).each(function (k,v) {
+//                    html+='<li class="news1"><a href="__ROOT__/index.php/mobile/article/index/arid/'+v.id+'"><span>'+v.nickname+'</span></a></li>';
+//                });
+                $("#contentArea").append(msges);
+            }
+        });
+    }
+    getlist(1);
+    $("#imore").click(function () {
+        getlist(++page);
+    });
+</script>
+</body>
+</html>

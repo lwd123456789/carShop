@@ -1,0 +1,28 @@
+<div class="fyLeft">
+
+    <div class="l_pro">
+        <div class="l_pro_t">{$topname}</div>
+        <ul class="l_procon">
+            {volist name="son2" id="v"}
+            <li class="proOne">
+                <a href="{if condition="$v['parentid'] eq 63"}{:url('carlist/index',array('cateid'=>$v['id']))}{else /}{:url('index',array('cateid'=>$v['id']))}{/if}" title="{$v.name}">{$v.name}</a>
+                <ul>
+                    {if condition="$v['id'] eq input('cateid') || $v['id'] eq $son3pid"}
+                        {volist name="son3" id="v1"}
+                            <li><a href="{:url('index',array('cateid'=>$v1['id']))}" title="{$v1.name}">----{$v1.name}</a></li>
+                        {/volist}
+                    {/if}
+                </ul>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    <div class="fl-contact">
+        <div class="l_pro_t1">联系我们</div>
+        <p><img src="__IMG__/cont.jpg" alt="联系我们" width="200" height="98" /></p>
+        <div class="fl-con">电话：{:config('myconfig.PHONE')}<br />
+            传真：{:config('myconfig.FAX')}<br />
+            地址：{:config('myconfig.ADDRESS')}<br />
+            邮箱：{:config('myconfig.EMAIL')}</div>
+    </div>
+</div>

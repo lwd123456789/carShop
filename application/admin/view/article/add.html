@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>添加文章</title>
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/main.css"/>
+    <script type="text/javascript" src="__JS__/libs/modernizr.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery-1.4.2.min.js"></script>
+    <!--百度编辑器-->
+    <script type="text/javascript" src="__UEDITOR__/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="__UEDITOR__/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="__UEDITOR__/ueditor/lang/zh-cn/zh-cn.js"></script>
+</head>
+<body>
+<!--引入头部文件-->
+{include file="common/top" /}
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <!--引入左侧文件-->
+        {include file="common/left" /}
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list">
+                <i class="icon-font"></i>
+                <a href="/jscss/admin/design/">首页</a>
+                <span class="crumb-step">&gt;</span>
+                <a class="crumb-name" href="{:url('article/lst')}">文章管理</a>
+                <span class="crumb-step">&gt;</span>
+                <span>新增文章</span>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                <form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                            <tr>
+                                <th width="120"><i class="require-red">*</i>所属分类：</th>
+                                <td>
+                                    <select name="cateid" id="catid" class="required">
+                                        {volist name="cates" id="cate"}
+                                        <option value={$cate.id}>{if condition="$cate['parentid'] eq 0"}{else}|{/if}<?php echo str_repeat('-',$cate['level']*4)?>{$cate.name}</option>
+                                        {/volist}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><i class="require-red">*</i>文章标题：</th>
+                                <td>
+                                    <input class="common-text required" id="title" name="title" size="50" value="" type="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>文章作者：</th>
+                                <td>
+                                    <input class="common-text required" id="author" name="author" size="50" value="" type="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>关键词：</th>
+                                <td><input class="common-text" name="keywords" size="50" value="" type="text"></td>
+                            </tr>
+                            <tr>
+                                <th>描述：</th>
+                                <td>
+                                    <textarea name="desc" class="common-textarea" cols="60" rows="5"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>是否推荐：</th>
+                                <td>
+                                    <input class="common-text" name="rem" size="50" value="1" type="checkbox">推荐
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>文章类型：</th>
+                                <td>
+                                    <div id="atype">
+                                        <input class="common-text" name="atype" size="50" value="0" checked="checked" type="radio">列表
+                                        <input class="common-text" name="atype" size="50" value="1" type="radio">车型
+                                        <input class="common-text" name="atype" size="50" value="2" type="radio">招聘
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="btype">
+                                <th>列表附加字段：</th>
+                                <td>暂无附加字段</td>
+                            </tr>
+                            <tr class="btype">
+                                <th>日租：</th>
+                                <td>
+                                    <input class="common-text" name="rizu" size="50" value="" type="text">元/天
+                                </td>
+                            </tr>
+                            <tr class="btype">
+                                <th>招聘人数：</th>
+                                <td>
+                                    <input class="common-text" name="num" size="50" value="" type="text">人
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><i class="require-red">*</i>缩略图：</th>
+                                <td><input name="pic" id="" type="file"><!--<input type="submit" onclick="submitForm('/jscss/admin/design/upload')" value="上传图片"/>--></td>
+                            </tr>
+                            <tr>
+                                <th>内容：</th>
+                                <td>
+                                    <textarea name="content" class="common-textarea" id="content" cols="30" style="width: 98%;" rows="10"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                                    <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    //实例化编辑器
+    UE.getEditor('content',{initialFrameWidth:800,initialFrameHeight:300});
+    $(".btype").hide();
+    $(".btype").eq(0).show();
+    $("#atype input").click(function () {
+        var i = $(this).index();
+        $(".btype").hide();
+        $(".btype").eq(i).show();
+    });
+</script>

@@ -1,0 +1,6 @@
+<ul class="nav">
+    <li><a href="http://www.carshop.com/index.php/mobile/index/index" title="首页"><span class="iconfont">&#xe607;</span>首页</a></li>
+    {volist name="cateres" id="cate"}
+    <li><a href="http://www.carshop.com/index.php/mobile/{if condition="$cate['type'] eq 1"}arlist{elseif condition="$cate['type'] eq 2" /}page{elseif condition="$cate['type'] eq 3" /}message{elseif condition="$cate['type'] eq 4" /}zplist{elseif condition="$cate['type'] eq 5" /}carlist{elseif condition="$cate['type'] eq 6" /}rylist{elseif condition="$cate['type'] eq 7" /}job{/if}/index/cateid/{$cate.id}" title="{$cate.name}">{$cate.name}</a></li>
+    {/volist}
+</ul>

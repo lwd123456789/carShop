@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="telephone=no" name="format-detection" />
+<meta name="Author" content="0431" />
+<title>这里是您的网站名称</title>
+<meta name="keywords" content="这里是您的网站名称4" />
+<meta name="description" content="这里是您的网站名称" />
+<link rel="stylesheet" type="text/css" href="__STYLE__/subpage.css" />
+<script type="text/javascript" src="__STYLE__/jquery.js"></script>
+<style>
+.head {
+	background: #1a2a38;
+}
+.foot {
+	background: #132330;
+}
+.nav {
+	background: #0152b5 !important
+}
+.nav_color {
+	background: #222;
+}
+</style>
+<script type="text/javascript" src="__STYLE__/nav.js"></script>
+<script type="text/javascript" src="__STYLE__/cart_icon.js"></script>
+</head>
+<body>
+<!--引入导航文件-->
+{include file="common/nav" /}
+<div class="allpage">
+    <div class="black-fixed iconfont">&#xe60f;</div>
+    <!--引入头部文件-->
+    {include file="common/header" /}
+    <div class="content">
+        <div class="product-top">
+            <p>
+                        共{$count}条信息
+            </p>
+        </div>
+        <ul class="common_news" id="contentArea">
+
+        </ul>
+        <a href="javascript:void(0);" title="查看更多" id="imore" class="imore">查看更多</a>
+    </div>
+    <!--引入底部文件-->
+    {include file="common/footer" /}
+</div>
+<input type="hidden" id="showType" value="b">
+<script language="javascript">
+    var page = 1; //当前页码
+    function getlist(page) {
+        $.ajax({
+            type:"GET",
+            url:"__ROOT__/index.php/mobile/carlist/getInfo/p/"+page+"/kws/<?php echo input('get.kws');?>",
+            dataType:"json",
+            success:function (data) {
+                if (data==null ||data==''){
+                    $("#imore").html('没有数据了！');
+                    $("#imore").unbind("click");
+                }
+                var html = "";
+                $(data).each(function (k,v) {
+                    html+='<li class="news4"><a href="__ROOT__/index.php/mobile/article/index/arid/'+v.id+'"><img src="'+v.pic+'"><span>'+v.title+'</span></a></li>';
+                });
+                $("#contentArea").append(html);
+            }
+        });
+    }
+    getlist(1);
+    $("#imore").click(function () {
+        getlist(++page);
+    });
+</script>
+</body>
+</html>

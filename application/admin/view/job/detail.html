@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>求职信息</title>
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/main.css"/>
+    <script type="text/javascript" src="__JS__/libs/modernizr.min.js"></script>
+</head>
+<body>
+<!--引入头部文件-->
+{include file="common/top" /}
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <!--引入左侧文件-->
+        {include file="common/left" /}
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list">
+                <i class="icon-font"></i>
+                <a href="/jscss/admin/design/">首页</a>
+                <span class="crumb-step">&gt;</span>
+                <a class="crumb-name" href="{:url('job/lst')}">求职信息</a>
+                <span class="crumb-step">&gt;</span>
+                <span>求职信息</span>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                <form method="post" name="hrform" id="hrform" action="">
+                    <table width="95%" border="1" cellspacing="0" cellpadding="3" align="center" class="hr">
+                        <tr>
+                            <td height="40" colspan="4" align="center" class="bord"><h2>求职表</h2></td>
+                        </tr>
+                        <tr>
+                            <td height="25" align="right"  class="bord">应聘职位：</td>
+                            <td height="25" colspan="3" align="left" class="bord">{$jobs.title}</td>
+                        </tr>
+                        <tr>
+                            <td height="25" align="right"  class="bord">真实姓名：</td>
+                            <td height="25" align="left" class="bord">{$jobs.name}</td>
+                            <td height="25" align="right" class="bord">性别：</td>
+                            <td height="25" align="left" class="bord">{$jobs.sex}</td>
+                        </tr>
+                        <tr>
+                            <td width="14%" height="25" align="right" class="bord">民族：</td>
+                            <td width="27%" height="25" align="left" class="bord">{$jobs.nation}</td>
+                            <td width="17%" height="25" align="right" class="bord">出生日期：</td>
+                            <td width="42%" height="25" align="left" class="bord">{$jobs.age}</td>
+                        </tr>
+                        <tr>
+                            <td width="14%" height="25" align="right" class="bord">婚姻状况：</td>
+                            <td width="27%" height="25" align="left" class="bord">{$jobs.marry}</td>
+                            <td width="17%" height="25" align="right" class="bord">有无子女：</td>
+                            <td width="42%" height="25" align="left" class="bord">{$jobs.child}</td>
+                        </tr>
+                        <tr>
+                            <td width="14%" height="25" align="right" class="bord">籍贯：</td>
+                            <td width="27%" height="25" align="left" class="bord">{$jobs.bplace}</td>
+                            <td width="17%" height="25" align="right" class="bord">户口所在地：</td>
+                            <td width="42%" height="25" align="left" class="bord">{$jobs.address}</td>
+                        </tr>
+                        <tr>
+                            <td width="14%" height="25" align="right" class="bord">学历：</td>
+                            <td height="25" align="left" class="bord">{$jobs.education}</td>
+                            <td height="25" align="right" class="bord"><span class="STYLE2">外语语种及程度：</span></td>
+                            <td height="25" align="left" class="bord">{$jobs.foreign}</td>
+                        </tr>
+                        <tr>
+                            <td width="14%" height="25" align="right" class="bord">移动电话：</td>
+                            <td width="27%" height="25" align="left" class="bord">{$jobs.mobile}</td>
+                            <td width="17%" height="25" align="right" class="bord">电子邮件：</td>
+                            <td width="42%" height="25" align="left" class="bord">{$jobs.email}</td>
+                        </tr>
+                        <tr>
+                            <td height="25" align="right" class="bord">身份证号：</td>
+                            <td height="25" align="left" class="bord">{$jobs.idnums}</td>
+                            <td height="25" align="right" class="bord"><span class="STYLE2">现住址：</span></td>
+                            <td height="25" align="left" class="bord">{$jobs.address_now}</td>
+                        </tr>
+                        <tr>
+                            <td width="14%" height="25" align="right" class="bord">可到职日期：</td>
+                            <td height="25" colspan="3" align="left" class="bord">{$jobs.slim}</td>
+                        </tr>
+                        <tr>
+                            <td width="14%" height="25" align="right" class="bord">备注：</td>
+                            <td height="25" colspan="3" align="left" class="bord">{$jobs.content}</td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>

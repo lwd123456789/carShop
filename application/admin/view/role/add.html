@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>添加角色</title>
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/main.css"/>
+    <script type="text/javascript" src="__JS__/libs/modernizr.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery-1.4.2.min.js"></script>
+</head>
+<body>
+<!--引入头部文件-->
+{include file="common/top" /}
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <!--引入左侧文件-->
+        {include file="common/left" /}
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list">
+                <i class="icon-font"></i>
+                <a href="/jscss/admin/design/">首页</a>
+                <span class="crumb-step">&gt;</span>
+                <a class="crumb-name" href="{:url('role/lst')}">角色管理</a>
+                <span class="crumb-step">&gt;</span>
+                <span>新增角色</span>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                <form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                            <tr>
+                                <th><i class="require-red">*</i>角色名称：</th>
+                                <td>
+                                    <input class="common-text" id="title" name="rolename" size="50" value="" type="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><i class="require-red">*</i>角色权限：</th>
+                                <td>
+                                    <ul>
+                                        {volist name="pris" id="pri"}
+                                        <li level="{$pri.level}">
+                                            <input class="common-text" name="pri_id_list[]" size="50" value="{$pri.id}" type="checkbox">
+                                            {if condition="$pri['parentid'] eq 0"}{else}|{/if}<?php echo str_repeat('-',$pri['level']*4)?>
+                                            {$pri.pri_name}
+                                        </li>
+                                        {/volist}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                                    <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(":checkbox").click(function () {
+        var cur_li=$(this).parent(); //当前li
+        var cur_level=cur_li.attr("level"); //获取当前li上的level的值
+        var checked=$(this).attr("checked"); //判断是否处于选中状态
+        cur_li.prevAll("li").each(function () {
+            if ($(this).attr("level")<cur_level && checked){
+                $(this).find(":checkbox").attr("checked","checked");
+                if ($(this).attr("level")==0){
+                    return false;
+                }
+            }
+        });
+        if (!checked){
+            cur_li.nextAll("li").each(function () {
+                if ($(this).attr("level")>cur_level){
+                    $(this).find(":checkbox").removeAttr("checked");
+                }else{
+                    return false;
+                }
+            });
+        }
+    });
+</script>

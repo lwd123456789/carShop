@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>回复留言</title>
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/main.css"/>
+    <script type="text/javascript" src="__JS__/libs/modernizr.min.js"></script>
+</head>
+<body>
+<!--引入头部文件-->
+{include file="common/top" /}
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <!--引入左侧文件-->
+        {include file="common/left" /}
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list">
+                <i class="icon-font"></i>
+                <a href="/jscss/admin/design/">首页</a>
+                <span class="crumb-step">&gt;</span>
+                <a class="crumb-name" href="{:url('message/lst')}">留言管理</a>
+                <span class="crumb-step">&gt;</span>
+                <span>回复留言</span>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                <form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+                    <input type="hidden" name="mid" value="{$messages.id}">
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                        <tr>
+                            <th>姓名：</th>
+                            <td>{$messages.nickname}</td>
+                        </tr>
+                        <tr>
+                            <th>手机号码：</th>
+                            <td>{$messages.telephone}</td>
+                        </tr>
+                        <tr>
+                            <th>邮箱地址：</th>
+                            <td>{$messages.email}</td>
+                        </tr>
+                        <tr>
+                            <th>留言内容：</th>
+                            <td>{$messages.content}</td>
+                        </tr>
+                        {volist name="replyres" id="reply"}
+                        <tr>
+                            <th>回复{$i}：</th>
+                            <td>{$reply.content}</td>
+                        </tr>
+                        {/volist}
+                        <tr>
+                            <th>管理员回复：</th>
+                            <td>
+                                <textarea name="content" cols="75" rows="6"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                                <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>
